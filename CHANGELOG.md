@@ -2,6 +2,11 @@
 
 Docs: https://docs.openclaw.ai
 
+## 1.0.7
+
+### Fixes
+- Feishu: fix plugin import paths to use compiled dist/ files instead of src/ (fixes plugin load failure on npm install)
+
 ## 1.0.6
 
 ### Changes
