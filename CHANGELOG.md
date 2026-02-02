@@ -2,6 +2,11 @@
 
 Docs: https://docs.openclaw.ai
 
+## 1.0.4
+
+### Fixes
+- CLI: avoid importing baileys during configure by removing web/accounts dependency
+
 ## 1.0.3
 
 ### Fixes
