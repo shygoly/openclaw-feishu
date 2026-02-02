@@ -2,6 +2,11 @@
 
 Docs: https://docs.openclaw.ai
 
+## 1.0.6
+
+### Changes
+- CLI: skip installation prompt for bundled plugins enabled by default (Feishu)
+
 ## 1.0.5
 
 ### Changes
