@@ -2,6 +2,11 @@
 
 Docs: https://docs.openclaw.ai
 
+## 1.0.5
+
+### Changes
+- CLI: enable feishu plugin by default as bundled plugin (no installation needed)
+
 ## 1.0.4
 
 ### Fixes
