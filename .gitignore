@@ -71,6 +71,7 @@ USER.md
 
 # local tooling and hidden files
 .serena/
+.mcp.json
 
 # Ignore all hidden files and directories
 .*
