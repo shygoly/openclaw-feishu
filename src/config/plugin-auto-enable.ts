@@ -9,7 +9,6 @@ import {
   listChannelPluginCatalogEntries,
 } from "../channels/plugins/catalog.js";
 import { normalizeProviderId } from "../agents/model-selection.js";
-import { hasAnyWhatsAppAuth } from "../web/accounts.js";
 
 type PluginEnableChange = {
   pluginId: string;
@@ -164,9 +163,8 @@ function isIMessageConfigured(cfg: OpenClawConfig): boolean {
 }
 
 function isWhatsAppConfigured(cfg: OpenClawConfig): boolean {
-  if (hasAnyWhatsAppAuth(cfg)) {
-    return true;
-  }
+  // Check if WhatsApp is configured in the config file
+  // We don't check for auth directory here to avoid importing baileys
   const entry = resolveChannelConfig(cfg, "whatsapp");
   if (!entry) {
     return false;
