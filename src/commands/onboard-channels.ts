@@ -9,6 +9,7 @@ import {
 } from "../channels/registry.js";
 import type { OpenClawConfig } from "../config/config.js";
 import { isChannelConfigured } from "../config/plugin-auto-enable.js";
+import { BUNDLED_ENABLED_BY_DEFAULT } from "../plugins/config-state.js";
 import type { DmPolicy } from "../config/types.js";
 import { resolveChannelDefaultAccountId } from "../channels/plugins/helpers.js";
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../routing/session-key.js";
@@ -570,7 +571,21 @@ export async function setupChannels(
   const handleChannelChoice = async (channel: ChannelChoice) => {
     const { catalogById } = getChannelEntries();
     const catalogEntry = catalogById.get(channel);
-    if (catalogEntry) {
+
+    // Skip installation prompt for bundled plugins that are enabled by default
+    if (catalogEntry && BUNDLED_ENABLED_BY_DEFAULT.has(channel)) {
+      const workspaceDir = resolveAgentWorkspaceDir(next, resolveDefaultAgentId(next));
+      const enabled = await ensureBundledPluginEnabled(channel);
+      if (!enabled) {
+        return;
+      }
+      reloadOnboardingPluginRegistry({
+        cfg: next,
+        runtime,
+        workspaceDir,
+      });
+      await refreshStatus(channel);
+    } else if (catalogEntry) {
       const workspaceDir = resolveAgentWorkspaceDir(next, resolveDefaultAgentId(next));
       const result = await ensureOnboardingPluginInstalled({
         cfg: next,
