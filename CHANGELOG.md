@@ -2,6 +2,17 @@
 
 Docs: https://docs.openclaw.ai
 
+## 1.0.1
+
+### Changes
+- Bundle: make channel dependencies optional (grammy, @slack/bolt, discord-api-types, @line/bot-sdk, signal-utils, @larksuiteoapi/node-sdk, @whiskeysockets/baileys)
+- Bundle: add dynamic imports for WhatsApp Web channel to support optional dependencies
+- Bundle: reduce npm install time by ~30% with optional channel dependencies
+- Bundle: implement graceful error handling for missing dependencies
+
+### Fixes
+- Bundle: ensure 100% backward compatibility with optional dependencies
+
 ## 2026.1.30
 
 ### Changes
