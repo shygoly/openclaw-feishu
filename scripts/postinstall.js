@@ -287,6 +287,7 @@ function main() {
   process.chdir(repoRoot);
 
   ensureExecutable(path.join(repoRoot, 'dist', '/entry.js'));
+  ensureExecutable(path.join(repoRoot, 'openclaw.mjs'));
   setupGitHooks({ repoRoot });
   trySetupCompletion(repoRoot);
 
