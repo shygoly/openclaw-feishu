@@ -50,7 +50,7 @@ import Testing
     @Test func parseAgentLinkParsesTargetRoutingFields() {
         let url =
             URL(
-                string: "openclaw://agent?message=Hello%20World&deliver=1&to=%2B15551234567&channel=whatsapp&key=secret")!
+                string: "openclaw://agent?message=Hello%20World&deliver=1&to=ou_xxxxx&channel=feishu&key=secret")!
         #expect(
             DeepLinkParser.parse(url) == .agent(
                 .init(
@@ -58,8 +58,8 @@ import Testing
                     sessionKey: nil,
                     thinking: nil,
                     deliver: true,
-                    to: "+15551234567",
-                    channel: "whatsapp",
+                    to: "ou_xxxxx",
+                    channel: "feishu",
                     timeoutSeconds: nil,
                     key: "secret")))
     }
