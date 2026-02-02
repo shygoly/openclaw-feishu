@@ -1,7 +1,7 @@
 {
-  "name": "openclaw",
-  "version": "2026.1.30",
-  "description": "WhatsApp gateway CLI (Baileys web) with Pi RPC agent",
+  "name": "@chada007/openclaw-feishu",
+  "version": "1.0.0",
+  "description": "OpenClaw Feishu Edition - Personal AI Assistant for Feishu",
   "type": "module",
   "main": "dist/index.js",
   "exports": {
