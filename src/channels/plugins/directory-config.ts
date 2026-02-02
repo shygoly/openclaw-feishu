@@ -3,7 +3,6 @@ import type { ChannelDirectoryEntry } from "./types.js";
 import { resolveSlackAccount } from "../../slack/accounts.js";
 import { resolveDiscordAccount } from "../../discord/accounts.js";
 import { resolveTelegramAccount } from "../../telegram/accounts.js";
-import { resolveWhatsAppAccount } from "../../web/accounts.js";
 import { normalizeSlackMessagingTarget } from "./normalize/slack.js";
 import { isWhatsAppGroupJid, normalizeWhatsAppTarget } from "../../whatsapp/normalize.js";
 
@@ -13,6 +12,17 @@ export type DirectoryConfigParams = {
   query?: string | null;
   limit?: number | null;
 };
+
+// Dynamic import for WhatsApp account resolver (optional dependency)
+async function getWhatsAppResolver() {
+  try {
+    const module = await import("../../web/accounts.js");
+    return module.resolveWhatsAppAccount;
+  } catch (error) {
+    console.warn("WhatsApp Web channel not available:", error);
+    return null;
+  }
+}
 
 export async function listSlackDirectoryPeersFromConfig(
   params: DirectoryConfigParams,
@@ -213,6 +223,10 @@ export async function listTelegramDirectoryGroupsFromConfig(
 export async function listWhatsAppDirectoryPeersFromConfig(
   params: DirectoryConfigParams,
 ): Promise<ChannelDirectoryEntry[]> {
+  const resolveWhatsAppAccount = await getWhatsAppResolver();
+  if (!resolveWhatsAppAccount) {
+    return [];
+  }
   const account = resolveWhatsAppAccount({ cfg: params.cfg, accountId: params.accountId });
   const q = params.query?.trim().toLowerCase() || "";
   return (account.allowFrom ?? [])
@@ -229,6 +243,10 @@ export async function listWhatsAppDirectoryPeersFromConfig(
 export async function listWhatsAppDirectoryGroupsFromConfig(
   params: DirectoryConfigParams,
 ): Promise<ChannelDirectoryEntry[]> {
+  const resolveWhatsAppAccount = await getWhatsAppResolver();
+  if (!resolveWhatsAppAccount) {
+    return [];
+  }
   const account = resolveWhatsAppAccount({ cfg: params.cfg, accountId: params.accountId });
   const q = params.query?.trim().toLowerCase() || "";
   return Object.keys(account.groups ?? {})

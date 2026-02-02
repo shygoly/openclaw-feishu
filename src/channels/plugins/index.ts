@@ -55,6 +55,7 @@ export function normalizeChannelId(raw?: string | null): ChannelId | null {
   // Plugin registry must be initialized before calling.
   return normalizeAnyChannelId(raw);
 }
+
 export {
   listDiscordDirectoryGroupsFromConfig,
   listDiscordDirectoryPeersFromConfig,

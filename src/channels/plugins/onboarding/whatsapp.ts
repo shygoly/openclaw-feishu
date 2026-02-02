@@ -1,6 +1,5 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { loginWeb } from "../../../channel-web.js";
 import type { OpenClawConfig } from "../../../config/config.js";
 import { mergeWhatsAppConfig } from "../../../config/merge-config.js";
 import type { DmPolicy } from "../../../config/types.js";
@@ -19,6 +18,18 @@ import type { ChannelOnboardingAdapter } from "../onboarding-types.js";
 import { promptAccountId } from "./helpers.js";
 
 const channel = "whatsapp" as const;
+
+// Dynamic import for web channel (optional dependency)
+async function getWebModule() {
+  try {
+    return await import("../../../channel-web.js");
+  } catch (error) {
+    throw new Error(
+      "WhatsApp Web channel is not available. " +
+        "Install it with: npm install @whiskeysockets/baileys",
+    );
+  }
+}
 
 function setWhatsAppDmPolicy(cfg: OpenClawConfig, dmPolicy: DmPolicy): OpenClawConfig {
   return mergeWhatsAppConfig(cfg, { dmPolicy });
@@ -334,6 +345,8 @@ export const whatsappOnboardingAdapter: ChannelOnboardingAdapter = {
     });
     if (wantsLink) {
       try {
+        const webModule = await getWebModule();
+        const { loginWeb } = webModule;
         await loginWeb(false, undefined, runtime, accountId);
       } catch (err) {
         runtime.error(`WhatsApp login failed: ${String(err)}`);
