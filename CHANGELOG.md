@@ -2,6 +2,11 @@
 
 Docs: https://docs.openclaw.ai
 
+## 1.0.2
+
+### Fixes
+- CLI: add `openclaw-feishu` bin alias for package compatibility
+
 ## 1.0.1
 
 ### Changes
