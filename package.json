@@ -29,6 +29,7 @@
     "dist/channels/**",
     "dist/daemon/**",
     "dist/discord/**",
+    "dist/feishu/**",
     "dist/gateway/**",
     "dist/hooks/**",
     "dist/imessage/**",
