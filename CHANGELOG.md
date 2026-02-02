@@ -2,6 +2,12 @@
 
 Docs: https://docs.openclaw.ai
 
+## 1.0.3
+
+### Fixes
+- CLI: include dist/feishu in npm package files
+- CLI: ensure openclaw.mjs has executable permissions in postinstall
+
 ## 1.0.2
 
 ### Fixes
